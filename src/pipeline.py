@@ -17,6 +17,49 @@ from src.diagnostics.stationarity import adf_kpss
 from src.utils.constants import YEAR, EFF, ELUC, BIM
 
 
+def resolve_rcp_path(rcp_dat: str | None) -> Path | None:
+    """Resolve RCP concentration file path with small auto-discovery fallback."""
+    if not rcp_dat:
+        return None
+
+    candidate = Path(rcp_dat)
+    if candidate.exists():
+        return candidate
+
+    search_roots = [candidate.parent, Path("data/raw"), Path(".")]
+    patterns = ["RCP*_MIDYR_CONC.DAT", "RCP*_MIDYR_CONC.dat", "*MIDYR_CONC*.DAT", "*MIDYR_CONC*.dat"]
+
+    found = []
+    for root in search_roots:
+        if root.exists() and root.is_dir():
+            for pat in patterns:
+                found.extend(sorted(root.glob(pat)))
+
+    # dedupe while preserving order
+    unique = []
+    seen = set()
+    for f in found:
+        key = str(f.resolve())
+        if key not in seen:
+            seen.add(key)
+            unique.append(f)
+
+    if len(unique) == 1:
+        picked = unique[0]
+        print(f"[pipeline] RCP file not found at {candidate}; using discovered file: {picked}")
+        return picked
+
+    if len(unique) > 1:
+        options = ", ".join(str(x) for x in unique[:5])
+        raise FileNotFoundError(
+            f"RCP file not found at {candidate}. Found multiple candidates; pass --rcp_dat explicitly. Candidates: {options}"
+        )
+
+    raise FileNotFoundError(
+        f"RCP file not found at {candidate}. Add the DAT file or pass a valid --rcp_dat path."
+    )
+
+
 def cmd_run(args) -> None:
     ctx = new_run(Path(args.outputs))
 
@@ -114,16 +157,19 @@ def cmd_run(args) -> None:
     # ====================================
     # OPTIONAL: RCP inversion (MUST be INSIDE cmd_run)
     # ====================================
-    if args.rcp_dat and Path(args.rcp_dat).exists():
+    rcp_path = resolve_rcp_path(args.rcp_dat) if args.rcp_dat else None
+
+    if rcp_path is not None:
         from src.models.rcp_inversion import rcp_from_concentration, run_rcp_suite
         from src.viz.rcp_plots import (
             plot_rcp_atm_growth,
             plot_rcp_emissions_paths,
+            plot_rcp_emissions_scenario_envelope,
             plot_linear_vs_saturation_for_scenario,
         )
 
         # 1) Load RCP and convert concentration -> G_ATM
-        rcp_raw = load_rcp_dat(Path(args.rcp_dat))  # must return Year + CO2_ppm
+        rcp_raw = load_rcp_dat(rcp_path)  # must return Year + CO2_ppm
         rcp = rcp_from_concentration(rcp_raw, year_col="Year", ppm_col="CO2_ppm")
         rcp = rcp[(rcp["Year"] >= args.rcp_start) & (rcp["Year"] <= args.rcp_end)].copy().reset_index(drop=True)
 
@@ -176,6 +222,51 @@ def cmd_run(args) -> None:
             ctx.tables_dir / "table_rcp_emissions_paths_summary.tex",
             float_fmt="%.3f",
         )
+
+        key_year_cols = ["scenario", "model", "kappa", "E_2030", "E_2050", "E_2100", "peak_year", "net_zero_year"]
+        tab_key_years = tab_rcp[key_year_cols].copy().sort_values(["scenario", "model", "kappa"])
+        tab_key_years = tab_key_years.rename(
+            columns={
+                "scenario": "Scenario",
+                "model": "Model",
+                "kappa": "Saturation kappa",
+                "E_2030": "E_total in 2030 (GtC/yr)",
+                "E_2050": "E_total in 2050 (GtC/yr)",
+                "E_2100": "E_total in 2100 (GtC/yr)",
+                "peak_year": "Peak year",
+                "net_zero_year": "Net-zero year",
+            }
+        )
+        save_csv_and_latex(
+            tab_key_years,
+            ctx.tables_dir / "table_rcp_key_year_emissions.csv",
+            ctx.tables_dir / "table_rcp_key_year_emissions.tex",
+            float_fmt="%.3f",
+        )
+
+        ranking_2050 = (
+            tab_rcp[["spec", "scenario", "model", "kappa", "E_2050", "net_zero_year", "avg_slope_GtC_per_year"]]
+            .sort_values("E_2050")
+            .reset_index(drop=True)
+            .rename(
+                columns={
+                    "spec": "Specification",
+                    "scenario": "Scenario",
+                    "model": "Model",
+                    "kappa": "Saturation kappa",
+                    "E_2050": "E_total in 2050 (GtC/yr)",
+                    "net_zero_year": "Net-zero year",
+                    "avg_slope_GtC_per_year": "Post-peak slope (GtC/yr^2)",
+                }
+            )
+        )
+        save_csv_and_latex(
+            ranking_2050,
+            ctx.tables_dir / "table_rcp_2050_ranking.csv",
+            ctx.tables_dir / "table_rcp_2050_ranking.tex",
+            float_fmt="%.3f",
+        )
+
         save_csv_and_latex(
             info_rcp,
             ctx.tables_dir / "table_rcp_inversion_params.csv",
@@ -203,6 +294,15 @@ def cmd_run(args) -> None:
         plot_linear_vs_saturation_for_scenario(
             paths_rcp, "good_climate", kappas, ctx.figures_dir / "rcp_emissions_good_linear_vs_sat.png"
         )
+        plot_rcp_emissions_scenario_envelope(
+            paths_rcp,
+            ctx.figures_dir / "rcp_emissions_scenario_envelope.png",
+        )
+
+    else:
+        print("[pipeline] No RCP path supplied; skipping RCP inversion outputs.")
+
+    print(f"[pipeline] Run completed. Outputs written to: {ctx.run_dir}")
 
 
 def main():
@@ -217,7 +317,7 @@ def main():
     run.add_argument("--end", type=int, default=2012)
     run.add_argument("--drivers", default="nino34_max_z,scpdsi_global_max_z,tau_global_mean_z")
     run.add_argument("--label", default="default window model")
-    run.add_argument("--rcp_dat", default="data/raw/RCP3PD_MIDYR_CONC.DAT")
+    run.add_argument("--rcp_dat", default=None, help="Path to RCP MIDYR concentration DAT file")
     run.add_argument("--rcp_start", type=int, default=2020)
     run.add_argument("--rcp_end", type=int, default=2100)
     run.add_argument("--E0_year", type=int, default=None)
