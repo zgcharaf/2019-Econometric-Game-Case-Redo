@@ -1,0 +1,30 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Outputs / runs
+outputs/
+runs/
+
+# DATA (keep local, don't push)
+1_DATA/
+data/
+
+# Large scientific formats
+*.nc
+*.dat
+*.DAT
+
+# OS junk
+.DS_Store
+Thumbs.db

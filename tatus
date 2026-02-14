@@ -1,0 +1,101 @@
+[33m32ddc28[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Track netCDF files with Git LFS
+ .gitattributes | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
+[33m8160631[m Stop tracking raw data (netCDF) and outputs
+ .gitignore                                         |    1 [32m+[m
+ 1_DATA/1_RAW/GFED5.1_monthly_1997.nc               |  Bin [31m10577166[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_1998.nc               |  Bin [31m11181737[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_1999.nc               |  Bin [31m11029788[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2000.nc               |  Bin [31m11002181[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2001.nc               |  Bin [31m58585165[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2002.nc               |  Bin [31m64131349[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2003.nc               |  Bin [31m82791469[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2004.nc               |  Bin [31m81897309[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2005.nc               |  Bin [31m82948576[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2006.nc               |  Bin [31m81868880[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2007.nc               |  Bin [31m83070425[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2008.nc               |  Bin [31m81639581[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2009.nc               |  Bin [31m80478609[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2010.nc               |  Bin [31m79440707[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2011.nc               |  Bin [31m80960042[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2012.nc               |  Bin [31m83304339[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2013.nc               |  Bin [31m78790485[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2014.nc               |  Bin [31m80166658[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2015.nc               |  Bin [31m82683706[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2016.nc               |  Bin [31m79559774[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2017.nc               |  Bin [31m79955106[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2018.nc               |  Bin [31m78882272[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2019.nc               |  Bin [31m81146682[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2020.nc               |  Bin [31m79930675[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2021.nc               |  Bin [31m79297902[m -> [32m0[m bytes
+ 1_DATA/1_RAW/GFED5.1_monthly_2022.nc               |  Bin [31m75584359[m -> [32m0[m bytes
+ 1_DATA/1_RAW/Global_Carbon_Budget_2018v1.0.zip     |  Bin [31m241154[m -> [32m0[m bytes
+ .../Global_Carbon_Budget_2018v1.0/!LICENCE.pdf     |  Bin [31m75550[m -> [32m0[m bytes
+ .../1_RAW/Global_Carbon_Budget_2018v1.0/!TOC.csv   |    2 [31m-[m
+ .../Global_Carbon_Budget_2018v1.0.xlsx             |  Bin [31m164962[m -> [32m0[m bytes
+ 1_DATA/1_RAW/PICNTRL_MIDYR_CONC.zip                |  Bin [31m1695[m -> [32m0[m bytes
+ 1_DATA/1_RAW/PRE2005_MIDYR_CONC.zip                |  Bin [31m14860[m -> [32m0[m bytes
+ 1_DATA/1_RAW/RCP3PD_MIDYR_CONC.zip                 |  Bin [31m91174[m -> [32m0[m bytes
+ .../1_RAW/RCP3PD_MIDYR_CONC/RCP3PD_MIDYR_CONC.DAT  |  775 [31m--------[m
+ 1_DATA/1_RAW/RCP45_MIDYR_CONC.zip                  |  Bin [31m39854[m -> [32m0[m bytes
+ 1_DATA/1_RAW/RCP6_MIDYR_CONC.zip                   |  Bin [31m39998[m -> [32m0[m bytes
+ 1_DATA/1_RAW/RCP85_MIDYR_CONC.zip                  |  Bin [31m55332[m -> [32m0[m bytes
+ 1_DATA/1_RAW/RCP85_MIDYR_CONC/RCP85_MIDYR_CONC.DAT |  775 [31m--------[m
+ 1_DATA/1_RAW/nasa.land.csv                         | 1753 [31m------------------[m
+ 1_DATA/1_RAW/nino34.long.anom.csv                  | 1873 [31m--------------------[m
+ ..._1901_24.bams.2025.GLOBAL.IGBP.WHC.1901.2024.nc |  Bin [31m219416840[m -> [32m0[m bytes
+ 1_DATA/1_RAW/tau_map_2012-12.nc                    |  Bin [31m963896[m -> [32m0[m bytes
+ 1_DATA/2_PROCESSED/DM_Burned_97_22.csv             |   27 [31m-[m
+ 1_DATA/2_PROCESSED/nino34_yearly_stats.csv         |  157 [31m--[m
+ 1_DATA/2_PROCESSED/scPDSI_yearly_global_stats.csv  |  125 [31m--[m
+ 1_DATA/2_PROCESSED/tau_yearly_stats.csv            |  164 [31m--[m
+ 47 files changed, 1 insertion(+), 5651 deletions(-)
+[33me4c3536[m initial commit
+ .gitignore                                         |  65 [32m+++[m[31m--[m
+ 2_PREPRO/1_read_data.ipynb                         | 321 [32m++++++++++++++++++[m[31m---[m
+ README.md                                          |  25 [32m++[m
+ configs/model.yaml                                 |   5 [32m+[m
+ configs/paths.yaml                                 |   4 [32m+[m
+ .../2026-02-14_235622/artifacts/df_all.parquet     | Bin [31m0[m -> [32m31986[m bytes
+ .../artifacts/implied_gatm.parquet                 | Bin [31m0[m -> [32m2913[m bytes
+ .../figures/budget_components.png                  | Bin [31m0[m -> [32m279366[m bytes
+ .../2026-02-14_235622/figures/budget_imbalance.png | Bin [31m0[m -> [32m138412[m bytes
+ outputs_test/runs/2026-02-14_235622/metrics.json   |  13 [32m+[m
+ .../tables/implied_gatm_metrics.csv                |   2 [32m+[m
+ .../tables/implied_gatm_metrics.tex                |   7 [32m+[m
+ .../tables/stationarity_imbalance.csv              |   2 [32m+[m
+ .../tables/table_coefficients.csv                  |  16 [32m+[m
+ .../tables/table_coefficients.tex                  |  21 [32m++[m
+ .../tables/table_correlations.csv                  |  19 [32m++[m
+ .../2026-02-14_235622/tables/table_missingness.csv |  20 [32m++[m
+ .../tables/table_residual_diagnostics.csv          |   4 [32m+[m
+ .../tables/table_residual_diagnostics.tex          |   9 [32m+[m
+ .../tables/table_summary_stats.csv                 |  20 [32m++[m
+ requirements.txt                                   |   6 [32m+[m
+ src/__init__.py                                    |   0
+ src/diagnostics/__init__.py                        |   0
+ src/diagnostics/regression_diagnostics.py          |  69 [32m+++++[m
+ src/diagnostics/stationarity.py                    |  16 [32m+[m
+ src/io/__init__.py                                 |   0
+ src/io/load_budget.py                              |  15 [32m+[m
+ src/io/load_drivers.py                             |  22 [32m++[m
+ src/io/load_rcp.py                                 |  37 [32m+++[m
+ src/models/__init__.py                             |   0
+ src/models/implied_gatm.py                         |  32 [32m++[m
+ src/models/inversion.py                            |  83 [32m++++++[m
+ src/models/rcp_inversion.py                        | 268 [32m+++++++++++++++++[m
+ src/models/robustness.py                           |  70 [32m+++++[m
+ src/models/sarimax_dynreg.py                       |  25 [32m++[m
+ src/pipeline.py                                    | 231 [32m+++++++++++++++[m
+ src/transform/__init__.py                          |   0
+ src/transform/features.py                          |  35 [32m+++[m
+ src/transform/merge.py                             |  17 [32m++[m
+ src/utils/__init__.py                              |   0
+ src/utils/constants.py                             |   8 [32m+[m
+ src/utils/export_tables.py                         |  14 [32m+[m
+ src/utils/tracking.py                              |  60 [32m++++[m
+ src/viz/__init__.py                                |   0
+ src/viz/plots_budget.py                            |  39 [32m+++[m
+ src/viz/rcp_plots.py                               |  18 [32m++[m
+ src/viz/savefig.py                                 |  11 [32m+[m
+ 47 files changed, 1574 insertions(+), 55 deletions(-)

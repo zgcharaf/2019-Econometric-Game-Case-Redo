@@ -1,0 +1,4 @@
+budget_xlsx: data/raw/Global_Carbon_Budget_2018v1.0.xlsx
+rcp_dat: data/raw/RCP3PD_MIDYR_CONC.DAT
+processed_dir: data/processed
+outputs_dir: outputs

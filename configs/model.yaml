@@ -1,0 +1,5 @@
+default:
+  window:
+    start: 1989
+    end: 2012
+  land_drivers: [nino34_max_z, scpdsi_global_max_z, tau_global_mean_z]
