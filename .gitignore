@@ -18,12 +18,10 @@ runs/
 
 # DATA (keep local, don't push)
 1_DATA/
-data/
 
 # Large scientific formats
 *.nc
-*.dat
-*.DAT
+
 
 # OS junk
 .DS_Store
