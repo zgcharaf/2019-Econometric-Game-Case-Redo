@@ -1,0 +1,160 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\title{Econometric Carbon Budget Study:\\
+Pipeline Approach and Results Summary}
+\author{Auto-generated manuscript draft}
+\date{\today}
+
+\newcommand{\optionalfigure}[3]{%
+  \IfFileExists{#1}{%
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=#2\textwidth]{#1}
+      \caption{#3}
+    \end{figure}
+  }{%
+    \begin{figure}[H]
+      \centering
+      \fbox{\parbox{0.9\textwidth}{\centering Missing figure: \texttt{#1}.\\
+      Copy this file from your pipeline output folder into the same Overleaf project path.}}
+      \caption{#3 (placeholder)}
+    \end{figure}
+  }%
+}
+
+\newcommand{\optionaltableinput}[2]{%
+  \IfFileExists{#1}{%
+    \begin{table}[H]
+      \centering
+      \caption{#2}
+      \input{#1}
+    \end{table}
+  }{%
+    \begin{table}[H]
+      \centering
+      \caption{#2 (placeholder)}
+      \fbox{\parbox{0.9\textwidth}{\centering Missing table: \texttt{#1}.\\
+      Copy this file from your pipeline output folder into the same Overleaf project path.}}
+    \end{table}
+  }%
+}
+
+\begin{document}
+\maketitle
+\onehalfspacing
+
+\begin{abstract}
+This document summarizes the modeling pipeline used for the econometric carbon-budget study,
+including data assembly, model estimation, diagnostics, and RCP-based inversion analysis.
+It is written so you can upload directly to Overleaf and immediately render a readable report.
+If figures/tables are not yet copied into the Overleaf project, placeholder boxes are shown,
+which makes missing assets explicit and easy to fix.
+\end{abstract}
+
+\section{Study Objective}
+The objective is to recover admissible emissions trajectories implied by concentration pathways and
+driver-adjusted sink dynamics, while preserving a transparent, reproducible workflow. The pipeline
+combines Global Carbon Budget components with exogenous climate drivers, estimates reduced-form
+sink equations, and performs forward inversion under alternative assumptions (linear vs saturation)
+and climate scenarios (baseline, adverse, favorable).
+
+\section{Pipeline Overview}
+\subsection{Data and feature engineering}
+The workflow loads the historical carbon budget (fossil, land-use, ocean sink, land sink,
+atmospheric growth, and imbalance), merges annual driver statistics (ENSO, drought, temperature,
+and burned area), and constructs standardized regressors and emissions transforms.
+
+\subsection{Econometric core}
+For a selected estimation window, sink and imbalance relationships are fit and diagnosed. Outputs include:
+\begin{itemize}
+    \item model metrics,
+    \item coefficient tables,
+    \item residual diagnostic tables,
+    \item stationarity checks.
+\end{itemize}
+
+\subsection{RCP inversion module}
+Given an RCP concentration path, annual atmospheric growth is implied via first differences.
+The inversion then solves for admissible total emissions under:
+\begin{enumerate}
+    \item a linear sink response,
+    \item a nonlinear saturation extension with curvature parameter $\kappa$.
+\end{enumerate}
+Scenario perturbations produce baseline, bad-climate, and good-climate trajectories.
+
+\section{How to Reproduce Results}
+Run the pipeline (adjust paths as needed):
+\begin{verbatim}
+python -m src.pipeline run \
+  --start 1989 --end 2012 \
+  --drivers "nino34_max_z,scpdsi_global_max_z,tau_global_mean_z" \
+  --label "tau-window best" \
+  --rcp_dat "data/raw/RCP3PD_MIDYR_CONC.DAT" \
+  --rcp_start 2020 --rcp_end 2100
+\end{verbatim}
+
+Then copy assets from the chosen run folder:
+\begin{verbatim}
+outputs/runs/<timestamp>/figures/* -> figures/
+outputs/runs/<timestamp>/tables/*  -> tables/
+\end{verbatim}
+inside your Overleaf project (same level as this \texttt{.tex} file).
+
+\section{Main Figures}
+\optionalfigure{figures/budget_components.png}{0.95}{Historical global carbon budget components.}
+\optionalfigure{figures/budget_imbalance.png}{0.90}{Historical budget imbalance.}
+\optionalfigure{figures/rcp_implied_gatm.png}{0.95}{Implied atmospheric growth from RCP concentration path.}
+\optionalfigure{figures/rcp_emissions_all_specs.png}{0.98}{All RCP-implied emissions specifications (linear and saturation).}
+\optionalfigure{figures/rcp_emissions_baseline_linear_vs_sat.png}{0.95}{Baseline scenario: linear vs saturation assumptions.}
+\optionalfigure{figures/rcp_emissions_bad_linear_vs_sat.png}{0.95}{Bad-climate scenario: linear vs saturation assumptions.}
+\optionalfigure{figures/rcp_emissions_good_linear_vs_sat.png}{0.95}{Good-climate scenario: linear vs saturation assumptions.}
+\optionalfigure{figures/rcp_emissions_scenario_envelope.png}{0.95}{Scenario envelope (min/median/max admissible emissions).}
+
+\section{Main Tables}
+\optionaltableinput{tables/implied_gatm_metrics.tex}{Implied atmospheric growth model metrics.}
+\optionaltableinput{tables/table_coefficients.tex}{Estimated coefficients for sink and imbalance equations.}
+\optionaltableinput{tables/table_residual_diagnostics.tex}{Residual diagnostics (serial correlation, normality, and variance checks).}
+\optionaltableinput{tables/table_rcp_emissions_paths_summary.tex}{Summary of implied emissions pathways across scenarios/specifications.}
+\optionaltableinput{tables/table_rcp_key_year_emissions.tex}{Key-year implied emissions (2030, 2050, 2100), peak year, and net-zero year.}
+\optionaltableinput{tables/table_rcp_2050_ranking.tex}{Ranking of scenarios/specifications by 2050 emissions.}
+\optionaltableinput{tables/table_rcp_inversion_params.tex}{Recovered inversion parameters ($A$, $B$, $D$, denominator, and $\kappa$).}
+
+\section{Interpretation Guidance}
+\begin{itemize}
+    \item Compare linear vs saturation curves to quantify additional mitigation pressure under nonlinear sink limits.
+    \item Use key-year tables to report policy-relevant checkpoints and net-zero timing differences.
+    \item Use the scenario envelope figure to communicate uncertainty bands induced by climate-state assumptions.
+    \item Cross-check diagnostics tables before asserting structural conclusions from coefficients.
+\end{itemize}
+
+\section{Limitations and Next Steps}
+\begin{itemize}
+    \item Results depend on driver specification and estimation window choice.
+    \item RCP inversion quality is sensitive to concentration file integrity and conversion assumptions.
+    \item Future extension: explicit uncertainty propagation (parameter/posterior sampling) into RCP envelopes.
+\end{itemize}
+
+\end{document}
