@@ -254,12 +254,6 @@ def cmd_run(args) -> None:
             ctx.figures_dir / "rcp_emissions_scenario_envelope.png",
         )
 
-    else:
-        if args.rcp_dat:
-            print(f"[pipeline] RCP file not found at {args.rcp_dat}; skipping RCP inversion outputs.")
-
-    print(f"[pipeline] Run completed. Outputs written to: {ctx.run_dir}")
-
 
 def main():
     ap = argparse.ArgumentParser(prog="carbon-budget-pipeline")
