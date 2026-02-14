@@ -119,6 +119,7 @@ def cmd_run(args) -> None:
         from src.viz.rcp_plots import (
             plot_rcp_atm_growth,
             plot_rcp_emissions_paths,
+            plot_rcp_emissions_scenario_envelope,
             plot_linear_vs_saturation_for_scenario,
         )
 
@@ -176,6 +177,51 @@ def cmd_run(args) -> None:
             ctx.tables_dir / "table_rcp_emissions_paths_summary.tex",
             float_fmt="%.3f",
         )
+
+        key_year_cols = ["scenario", "model", "kappa", "E_2030", "E_2050", "E_2100", "peak_year", "net_zero_year"]
+        tab_key_years = tab_rcp[key_year_cols].copy().sort_values(["scenario", "model", "kappa"])
+        tab_key_years = tab_key_years.rename(
+            columns={
+                "scenario": "Scenario",
+                "model": "Model",
+                "kappa": "Saturation kappa",
+                "E_2030": "E_total in 2030 (GtC/yr)",
+                "E_2050": "E_total in 2050 (GtC/yr)",
+                "E_2100": "E_total in 2100 (GtC/yr)",
+                "peak_year": "Peak year",
+                "net_zero_year": "Net-zero year",
+            }
+        )
+        save_csv_and_latex(
+            tab_key_years,
+            ctx.tables_dir / "table_rcp_key_year_emissions.csv",
+            ctx.tables_dir / "table_rcp_key_year_emissions.tex",
+            float_fmt="%.3f",
+        )
+
+        ranking_2050 = (
+            tab_rcp[["spec", "scenario", "model", "kappa", "E_2050", "net_zero_year", "avg_slope_GtC_per_year"]]
+            .sort_values("E_2050")
+            .reset_index(drop=True)
+            .rename(
+                columns={
+                    "spec": "Specification",
+                    "scenario": "Scenario",
+                    "model": "Model",
+                    "kappa": "Saturation kappa",
+                    "E_2050": "E_total in 2050 (GtC/yr)",
+                    "net_zero_year": "Net-zero year",
+                    "avg_slope_GtC_per_year": "Post-peak slope (GtC/yr^2)",
+                }
+            )
+        )
+        save_csv_and_latex(
+            ranking_2050,
+            ctx.tables_dir / "table_rcp_2050_ranking.csv",
+            ctx.tables_dir / "table_rcp_2050_ranking.tex",
+            float_fmt="%.3f",
+        )
+
         save_csv_and_latex(
             info_rcp,
             ctx.tables_dir / "table_rcp_inversion_params.csv",
@@ -202,6 +248,10 @@ def cmd_run(args) -> None:
         )
         plot_linear_vs_saturation_for_scenario(
             paths_rcp, "good_climate", kappas, ctx.figures_dir / "rcp_emissions_good_linear_vs_sat.png"
+        )
+        plot_rcp_emissions_scenario_envelope(
+            paths_rcp,
+            ctx.figures_dir / "rcp_emissions_scenario_envelope.png",
         )
 
 
