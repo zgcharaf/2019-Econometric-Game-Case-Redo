@@ -1,0 +1,20 @@
+variable,missing_n,missing_share
+Year,0,0.0
+E_total,0,0.0
+dE_total,1,0.01694915254237288
+fossil fuel and industry,0,0.0
+land-use change emissions,0,0.0
+ocean sink,0,0.0
+land sink,0,0.0
+atmospheric growth,0,0.0
+budget imbalance,0,0.0
+nino34_mean_z,0,0.0
+nino34_max_z,0,0.0
+nino34_var_logz,0,0.0
+scpdsi_global_mean_z,0,0.0
+scpdsi_global_max_z,0,0.0
+scpdsi_global_var_logz,0,0.0
+tau_global_mean_z,5,0.0847457627118644
+tau_global_max_z,5,0.0847457627118644
+tau_global_var_logz,5,0.0847457627118644
+DM_g_year_z,38,0.6440677966101694

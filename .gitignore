@@ -13,8 +13,7 @@ env/
 .idea/
 
 # Outputs / runs
-outputs/
-runs/
+
 
 # DATA (keep local, don't push)
 1_DATA/

@@ -1,0 +1,2 @@
+label,n_obs,rmse,mae,corr
+default window model,24,0.7700525053202196,0.6412925229792591,0.756975821174422
