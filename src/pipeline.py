@@ -109,6 +109,7 @@ def cmd_run(args) -> None:
     # MAIN MODEL
     # =========================
     from src.diagnostics.regression_diagnostics import coef_table, residual_diagnostics
+    from src.diagnostics.prediction_enhancements import generate_prediction_outputs
     from src.utils.export_tables import save_csv_and_latex
 
     drivers_list = [s.strip() for s in args.drivers.split(",")] if args.drivers else []
@@ -149,6 +150,17 @@ def cmd_run(args) -> None:
         rd,
         ctx.tables_dir / "table_residual_diagnostics.csv",
         ctx.tables_dir / "table_residual_diagnostics.tex",
+    )
+
+    generate_prediction_outputs(
+        df_win=df_win,
+        series=series,
+        res_ocn=res_ocn,
+        res_lnd=res_lnd,
+        res_bim=res_bim,
+        land_drivers=drivers_list,
+        tables_dir=ctx.tables_dir,
+        figures_dir=ctx.figures_dir,
     )
 
     update_metrics(ctx, **{f"implied_{k}": v for k, v in metrics.items() if k != "label"})
