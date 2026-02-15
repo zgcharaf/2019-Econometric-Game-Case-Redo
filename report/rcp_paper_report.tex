@@ -132,6 +132,16 @@ inside your Overleaf project (same level as this \texttt{.tex} file).
 \optionalfigure{figures/rcp_emissions_bad_linear_vs_sat.png}{0.95}{Bad-climate scenario: linear vs saturation assumptions.}
 \optionalfigure{figures/rcp_emissions_good_linear_vs_sat.png}{0.95}{Good-climate scenario: linear vs saturation assumptions.}
 \optionalfigure{figures/rcp_emissions_scenario_envelope.png}{0.95}{Scenario envelope (min/median/max admissible emissions).}
+\optionalfigure{figures/fig_pred_actual_vs_fitted.png}{0.95}{Prediction diagnostics: actual vs fitted atmospheric growth with uncertainty band.}
+\optionalfigure{figures/fig_pred_residuals_vs_fitted.png}{0.90}{Prediction diagnostics: residuals vs fitted with LOWESS trend.}
+\optionalfigure{figures/fig_pred_qq_residuals.png}{0.80}{Prediction diagnostics: Q--Q plot of residuals.}
+\optionalfigure{figures/fig_pred_scale_location.png}{0.90}{Prediction diagnostics: scale-location plot.}
+\optionalfigure{figures/fig_pred_residual_acf_pacf_ljungbox.png}{1.00}{Prediction diagnostics: residual ACF/PACF and Ljung--Box p-values.}
+\optionalfigure{figures/fig_pred_rolling_rmse_mae.png}{0.95}{Prediction diagnostics: rolling RMSE and MAE over time.}
+\optionalfigure{figures/fig_pred_coefficient_paths.png}{0.95}{Prediction diagnostics: rolling coefficient paths with confidence ribbons.}
+\optionalfigure{figures/fig_pred_partial_regression_grid.png}{1.00}{Prediction diagnostics: partial regression plots for key regressors.}
+\optionalfigure{figures/fig_pred_cooks_distance.png}{0.95}{Prediction diagnostics: Cook's distance by observation year.}
+\optionalfigure{figures/fig_pred_leverage_vs_resid2.png}{0.90}{Prediction diagnostics: leverage vs residuals with Cook's contours.}
 
 \section{Main Tables}
 \optionaltableinput{tables/implied_gatm_metrics.tex}{Implied atmospheric growth model metrics.}
@@ -141,6 +151,14 @@ inside your Overleaf project (same level as this \texttt{.tex} file).
 \optionaltableinput{tables/table_rcp_key_year_emissions.tex}{Key-year implied emissions (2030, 2050, 2100), peak year, and net-zero year.}
 \optionaltableinput{tables/table_rcp_2050_ranking.tex}{Ranking of scenarios/specifications by 2050 emissions.}
 \optionaltableinput{tables/table_rcp_inversion_params.tex}{Recovered inversion parameters ($A$, $B$, $D$, denominator, and $\kappa$).}
+\optionaltableinput{tables/table_pred_model_comparison.tex}{Prediction model comparison across specifications (fit and out-of-sample metrics).}
+\optionaltableinput{tables/table_pred_coefficient_stability.tex}{Rolling-window coefficient stability (estimates and confidence interval widths).}
+\optionaltableinput{tables/table_pred_robustness.tex}{Robustness checks with HC3, HAC, and alternative lag structure.}
+\optionaltableinput{tables/table_pred_collinearity_vif.tex}{Collinearity diagnostics: variance inflation factors.}
+\optionaltableinput{tables/table_pred_collinearity_top_corr.tex}{Collinearity diagnostics: top absolute regressor correlations.}
+\optionaltableinput{tables/table_pred_residual_diagnostics.tex}{Residual diagnostics with pass/fail flags at 5\% significance.}
+\optionaltableinput{tables/table_pred_influence_top10.tex}{Top 10 influential observations by Cook's distance/leverage/DFFITS.}
+\optionaltableinput{tables/table_pred_rolling_error_summary.tex}{Rolling forecast error summary statistics.}
 
 \section{Interpretation Guidance}
 \begin{itemize}
