@@ -1,0 +1,10 @@
+Specification,Scenario,Model,Saturation kappa,E_total in 2050 (GtC/yr),Net-zero year,Post-peak slope (GtC/yr^2)
+bad_climate | sat(k=0.01),bad_climate,saturation,0.01,3.0892389903766415,,-0.08540694464613142
+bad_climate | sat(k=0.005),bad_climate,saturation,0.005,3.1492031371974094,,-0.08900711890358363
+bad_climate | linear,bad_climate,linear,0.0,3.2140600290712644,,-0.0932845983890243
+baseline | sat(k=0.01),baseline,saturation,0.01,4.142638713345953,,-0.0825797034156816
+baseline | sat(k=0.005),baseline,saturation,0.005,4.249030086282257,,-0.08692339574911917
+baseline | linear,baseline,linear,0.0,4.367098680907945,,-0.09224300972431183
+good_climate | sat(k=0.01),good_climate,saturation,0.01,5.170477261195655,,-0.07990530455862477
+good_climate | sat(k=0.005),good_climate,saturation,0.005,5.334069170683675,,-0.08489562429275041
+good_climate | linear,good_climate,linear,0.0,5.520137332744624,,-0.08931502063469665

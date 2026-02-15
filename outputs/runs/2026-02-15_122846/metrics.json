@@ -1,0 +1,13 @@
+{
+  "imb_adf_stat": -4.82172665717476,
+  "imb_adf_p": 4.941334378173972e-05,
+  "imb_adf_lags": 0,
+  "imb_kpss_stat": 0.1498123052685328,
+  "imb_kpss_p": 0.1,
+  "imb_kpss_lags": 3,
+  "implied_n_obs": 24,
+  "implied_rmse": 0.7700525053202196,
+  "implied_mae": 0.6412925229792591,
+  "implied_corr": 0.756975821174422,
+  "implied_label": "tau-window best"
+}

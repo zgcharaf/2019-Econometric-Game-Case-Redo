@@ -1,0 +1,2 @@
+window,rolling_rmse_mean,rolling_rmse_max,rolling_mae_mean,rolling_mae_max,last_available_year
+10,0.7200169689884428,0.8810457239078279,0.6025420704281331,0.7824325877834774,2012
